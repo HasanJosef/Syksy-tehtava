@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./App.css";
 import Elokuvalista from "./Elokuvakalista";
 import ElokuvaLomake from "./elokuvalomake";
 import ElokuvaHaku from "./ElokuvaHaku";
+import { ThemeContext } from "./ThemeContext";
+import Header from "./Header";
 
 const initialMovies = [
   { title: "Inception", year: "2010", genre: "Sci-Fi" },
@@ -11,9 +13,9 @@ const initialMovies = [
 ];
 
 function App() {
+  const { theme } = useContext(ThemeContext);
   const [movies, setMovies] = useState(initialMovies);
   const [search, setSearch] = useState("");
-  const [theme, setTheme] = useState("light");
 
   const addMovie = (movie) => {
     setMovies([...movies, movie]);
@@ -27,19 +29,13 @@ function App() {
     movie.title.toLowerCase().includes(search.toLowerCase())
   );
 
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
-
   useEffect(() => {
     document.body.className = theme;
   }, [theme]);
 
   return (
     <div>
-      <button onClick={toggleTheme}>
-        Switch to {theme === "light" ? "Dark" : "Light"} Theme
-      </button>
+      <Header />
       <h1>Movie Catalog</h1>
       <ElokuvaHaku search={search} onSearchChange={setSearch} />
       <ElokuvaLomake onAddMovie={addMovie} />
