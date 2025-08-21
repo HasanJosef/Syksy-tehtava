@@ -1,13 +1,17 @@
 function Elokuvalista({ movies, onDeleteMovie }) {
   return (
-    <ul>
-      {movies.map((movie, idx) => (
-        <li key={idx}>
-          {movie.title} ({movie.year}) - {movie.genre}
-          <button onClick={() => onDeleteMovie(idx)}>Delete</button>
-        </li>
-      ))}
-    </ul>
+    <div className="elokuvalista">
+      <ul>
+        {movies.map((movie, idx) => (
+          <li key={idx}>
+            {movie.title} ({movie.year}) - {movie.genre}
+            <button className="delete-btn" onClick={() => onDeleteMovie(idx)}>
+              Poista
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
